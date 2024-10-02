@@ -1,6 +1,7 @@
 #include "header.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "stack.h"
 
 
 
@@ -23,10 +24,16 @@ Node * getnode(int data)
     return node;
 }
 
-int insert_begin(List * mylist,int data )
+int insert_begin(List * mylist, int data )
 {
     Node * node;
-     node= getnode(data);
+
+    node= getnode(data);
+   
+    
+      printf("%d ",node);
+    
+    
     if (mylist->count==0)
     {
         
@@ -41,10 +48,16 @@ int insert_begin(List * mylist,int data )
 
     return 0;
 }
-int insert_end(List * mylist,int data)
+int insert_end(List * mylist, int data)
 {
     Node * node;
+     
+
+    
     node= getnode(data);
+    
+    
+
      if (mylist->count==0)
     {
         
@@ -59,12 +72,13 @@ int insert_end(List * mylist,int data)
     return 0;
 
 }
-int delete_begin(List * mylist )
+int delete_begin(List * mylist)
 {
     Node * temp;
      temp=mylist->head;
      mylist->head=mylist->head->ptr;
-     free(temp);
+     //free(temp);
+     push(undo,temp,1);
      mylist->count--;
      return 0;
 }
@@ -75,8 +89,8 @@ int delete_end(List * mylist)
     for(temp=mylist->head;temp->ptr!=mylist->tail;temp=temp->ptr);
    
    
-   free(mylist->tail);
- 
+   //free(mylist->tail);
+   
    
     mylist->tail=temp;
     temp->ptr=NULL;
@@ -90,11 +104,11 @@ int insert_at_pos(List * mylist, int pos, int data)
 {
     Node *temp;
     Node *temp1;
-
+    
     temp1=getnode(data);
     int cur;
-
-
+    
+    
     if(pos==0)
     {
         insert_begin(mylist,data);
@@ -102,7 +116,7 @@ int insert_at_pos(List * mylist, int pos, int data)
     else if(pos==mylist->count)
     {
          
-        insert_end(mylist,data);
+        insert_end(mylist, data);
     }
     else
     {
@@ -129,6 +143,7 @@ int delete_at_pos(List * mylist, int pos)
     else if(pos==mylist->count)
     {
         delete_end(mylist);
+
     }
     else
     {
@@ -137,7 +152,9 @@ int delete_at_pos(List * mylist, int pos)
        
          temp1=temp->ptr;
          temp->ptr=temp->ptr->ptr;
-         free(temp1);
+         //free(temp1);
+        
+         
 
     }
     mylist->count--;

@@ -2,7 +2,10 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include "header.h"
+
+
+struct _node_;
+typedef struct _node_ Node;
 
 
 struct _stacknode_
@@ -11,7 +14,7 @@ struct _stacknode_
    Node * data;
    struct _stacknode_ * ptr;
 };
-typedef _stacknode_ Snode;
+typedef struct _stacknode_ Snode;
 
 struct _stack_
 {
@@ -20,10 +23,13 @@ struct _stack_
    Snode * top;
 
 };
-typedef _stack_ Stack;
+typedef struct _stack_ Stack;
 
 Stack * initialize_stack();
 int push(Stack *, Node *, int);
 Snode * pop(Stack *, int );
+void traverse(Stack * );
+
+#include "header.h"
 
 #endif
